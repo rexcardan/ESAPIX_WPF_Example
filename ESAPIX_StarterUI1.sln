@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESAPIX WPF Example", "ESAPIX_StarterUI1\ESAPIX WPF Example.csproj", "{B44BE254-5477-4FAD-BE80-828D2B3B88F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B44BE254-5477-4FAD-BE80-828D2B3B88F0}.Debug|x64.ActiveCfg = Debug|x64
+		{B44BE254-5477-4FAD-BE80-828D2B3B88F0}.Debug|x64.Build.0 = Debug|x64
+		{B44BE254-5477-4FAD-BE80-828D2B3B88F0}.Release|x64.ActiveCfg = Release|x64
+		{B44BE254-5477-4FAD-BE80-828D2B3B88F0}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B811C80C-4118-4DBC-ADC3-B0A6B02E6E39}
+	EndGlobalSection
+EndGlobal
