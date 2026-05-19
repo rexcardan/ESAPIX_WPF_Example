@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <UseWPF>true</UseWPF>
     <Platforms>x64</Platforms>
     <ApplicationIcon>Resources\esapix.ico</ApplicationIcon>
@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="ESAPIX_16.1" Version="1.6.7845.354" />
-    <PackageReference Include="Prism.Ninject" Version="7.2.0.1422" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
   </ItemGroup>
 
   <ItemGroup>

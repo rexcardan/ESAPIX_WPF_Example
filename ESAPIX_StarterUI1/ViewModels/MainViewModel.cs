@@ -1,27 +1,26 @@
-﻿using ESAPIX.Interfaces;
-using Prism.Mvvm;
-using System.Threading;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using ESAPIX.Common.Args;
+using ESAPIX.Interfaces;
+using System.Threading.Tasks;
 
 namespace ESAPX_StarterUI.ViewModels
 {
-    public class MainViewModel : BindableBase
+    public partial class MainViewModel : ObservableObject
     {
-        private string _title = "ESAPIX Starter Application";
+        private readonly IESAPIService _es;
 
+        [ObservableProperty]
+        private string title = "ESAPIX Starter Application";
 
-        public string Title
-        {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
-        }
+        [ObservableProperty]
+        private string selectedPlanId;
 
-        //Store in VM
-        private IESAPIService _es;
         public MainViewModel(IESAPIService es)
         {
             _es = es;
             //Fire method when plan setup is changed
-            _es.Execute(sac=> sac.PlanSetupChanged += Sac_PlanSetupChanged);
+            _es.Execute(sac => sac.PlanSetupChanged += Sac_PlanSetupChanged);
         }
 
         private void Sac_PlanSetupChanged(VMS.TPS.Common.Model.API.PlanSetup ps)
@@ -31,11 +30,13 @@ namespace ESAPX_StarterUI.ViewModels
             SelectedPlanId = _es.GetValue(sac => sac.PlanSetup?.Id);
         }
 
-        private string _selectedPlanId;
-        public string SelectedPlanId
+        [RelayCommand]
+        private Task SaveContext()
         {
-            get { return _selectedPlanId; }
-            set { SetProperty(ref _selectedPlanId, value); }
+            return _es.ExecuteAsync(sac =>
+            {
+                ContextIO.SaveToFile(sac);
+            });
         }
     }
 }

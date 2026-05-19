@@ -1,10 +1,23 @@
 ﻿<Window x:Class="ESAPX_StarterUI.Views.MainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:prism="http://prismlibrary.com/"
-        prism:ViewModelLocator.AutoWireViewModel="True"
         Title="{Binding Title}" Height="350" Width="525">
     <Grid>
-        <TextBlock Text="{Binding SelectedPlanId}" FontSize="100" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <DockPanel>
+            <ToolBar DockPanel.Dock="Top">
+                <Button Command="{Binding SaveContextCommand}"
+                        ToolTip="Save Context To File">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/ESAPIX_StarterUI1;component/Resources/save.png"
+                               Width="16"
+                               Height="16"
+                               VerticalAlignment="Center"
+                               Margin="0 0 5 0" />
+                        <TextBlock Text="Save Context" />
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+            <TextBlock Text="{Binding SelectedPlanId}" FontSize="100" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </DockPanel>
     </Grid>
 </Window>

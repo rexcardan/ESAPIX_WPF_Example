@@ -1,11 +1,11 @@
 ﻿#region
 
+using CommunityToolkit.Mvvm.Input;
 using ESAPIX.Common;
 using ESAPIX.Common.Args;
 using ESAPIX.Helpers;
 using ESAPIX.Helpers.Strings;
 using ESAPIX_StarterUI1.Overlay;
-using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -46,7 +46,7 @@ namespace ESAPIX.AppKit.Overlay
             showContextButton.Visibility = Visibility.Collapsed;
             Courses = new ObservableCollection<string>();
             PlanItems = new ObservableCollection<string>();
-            SaveContextCommand = new DelegateCommand(async () =>
+            SaveContextCommand = new AsyncRelayCommand(async () =>
             {
                 await AppComThread.Instance.ExecuteAsync(sc =>
                 {
@@ -156,7 +156,7 @@ namespace ESAPIX.AppKit.Overlay
             showContextButton.Visibility = Visibility.Visible;
         }
 
-        public DelegateCommand SaveContextCommand { get; set; }
+        public IAsyncRelayCommand SaveContextCommand { get; }
 
         #region AUTOCOMPLETE FUNCTIONS
         private void SearchForPatientCandidates(string inputText)

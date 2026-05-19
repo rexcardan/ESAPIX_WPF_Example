@@ -1,13 +1,10 @@
-﻿using CommonServiceLocator;
 using ESAPIX.AppKit.Overlay;
 using ESAPIX.Common;
 using ESAPIX.Common.Args;
 using ESAPIX.Interfaces;
 using ESAPIX.Services;
+using ESAPX_StarterUI.ViewModels;
 using ESAPX_StarterUI.Views;
-using Prism.Events;
-using Prism.Ioc;
-using Prism.Modularity;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,25 +14,32 @@ namespace ESAPX_StarterUI
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App
+    public partial class App : Application
     {
-        private IEventAggregator _ea;
         private IESAPIService _esapiServ;
+        private string[] _args;
 
         //Disable if you don't want patient selection
         public bool IsPatientSelectionEnabled { get; } = true;
 
-        private string[] _args;
-
         protected override void OnStartup(StartupEventArgs e)
         {
             _args = e.Args;
+            ConfigureEsapiService();
+
+            var win = CreateShell();
             base.OnStartup(e);
+
+            MainWindow = win;
+            win.Show();
         }
 
-        protected override Window CreateShell()
+        private MainView CreateShell()
         {
-            var win = ServiceLocator.Current.GetInstance<MainView>();
+            var win = new MainView
+            {
+                DataContext = new MainViewModel(_esapiServ)
+            };
 
             EventHandler addSelection = null;
 
@@ -63,10 +67,11 @@ namespace ESAPX_StarterUI
             {
                 win.ContentRendered += addSelection;
             }
+
             return win;
         }
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        private void ConfigureEsapiService()
         {
             _esapiServ = new ESAPIService(() => VMS.TPS.Common.Model.API.Application.CreateApplication());
             //args = ContextIO.ReadArgsFromFile(@"context.txt");
@@ -78,10 +83,6 @@ namespace ESAPX_StarterUI
                     ArgContextSetter.Set(sac, _args);
                 });
             }
-
-            _ea = Container.Resolve<IEventAggregator>();
-            containerRegistry.RegisterInstance(this._esapiServ);
-            containerRegistry.RegisterInstance(this.Container);
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -90,10 +91,11 @@ namespace ESAPX_StarterUI
             {
                 AppComThread.Instance.Dispose();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
+
             base.OnExit(e);
         }
     }
